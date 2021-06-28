@@ -3,6 +3,7 @@ import pandas as pd
 from flask import Flask, render_template, request
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity, linear_kernel
+from surprise import SVD
 import json
 import bs4 as bs
 import urllib.request
@@ -13,6 +14,9 @@ import requests
 filename = 'pickle/classifier.pkl'
 clf = pickle.load(open(filename, 'rb'))
 vectorizer = pickle.load(open('pickle/transform_tv.pkl', 'rb'))
+
+# Using the famous SVD algorithm
+svd = SVD()
 
 def create_similarity():
     data = pd.read_csv('hybrid_data.csv')
